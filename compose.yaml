@@ -1,0 +1,57 @@
+services:
+  java-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: CultureShelf-backend
+    restart: unless-stopped
+    init: true
+    ports:
+      - "8090:8090" # Spring Boot default port exposed in Dockerfile
+    # env_file: ./.env  # Uncomment if .env file exists
+    # Add external service dependencies below if required by the application
+    # depends_on:
+    #   - postgres
+    #   - redis
+    # networks:
+    #   - appnet
+
+# If your application requires a database or other external services, add them below.
+# Example for PostgreSQL:
+#  postgres:
+#    image: postgres:latest
+#    restart: unless-stopped
+#    environment:
+#      POSTGRES_USER: user
+#      POSTGRES_PASSWORD: password
+#      POSTGRES_DB: appdb
+#    volumes:
+#      - pgdata:/var/lib/postgresql/data
+#    healthcheck:
+#      test: ["CMD-SHELL", "pg_isready -U user"]
+#      interval: 10s
+#      timeout: 5s
+#      retries: 5
+#    networks:
+#      - appnet
+
+# Example for Redis:
+#  redis:
+#    image: redis:latest
+#    restart: unless-stopped
+#    healthcheck:
+#      test: ["CMD", "redis-cli", "ping"]
+#      interval: 10s
+#      timeout: 5s
+#      retries: 5
+#    networks:
+#      - appnet
+
+# Uncomment and configure networks if you add external services
+#networks:
+#  appnet:
+#    driver: bridge
+
+# Uncomment and configure volumes if you add persistent services
+#volumes:
+#  pgdata:

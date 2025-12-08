@@ -1,0 +1,55 @@
+# Version control
+.git/
+.gitignore
+.gitattributes
+.svn/
+.hg/
+
+# IDE and editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Build outputs
+/target/
+dist/
+build/
+out/
+
+# Java build artifacts
+*.class
+
+# Test directories and files
+test/
+tests/
+
+# Debug and log files
+debug/
+*.log
+
+# Environment and secret files
+.env*
+*.env
+*.pem
+*.key
+*.crt
+
+# Local and temporary files
+.local/
+local/
+tmp/
+temp/
+*.tmp
+
+# Documentation
+/docs/
+*.md
+README*
+
+# Docker files
+Dockerfile*
+docker-compose*
+
+# Project-specific exclusions
+# (No exclusions for .mvnw, .mvn, or .gradlew, .gradle as per instructions)

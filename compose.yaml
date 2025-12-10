@@ -1,5 +1,7 @@
 services:
   java-app:
+    environment:
+      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
     build:
       context: .
       dockerfile: Dockerfile
@@ -8,25 +10,27 @@ services:
     init: true
     ports:
       - "8090:8090" # Spring Boot default port exposed in Dockerfile
-    # env_file: ./.env  # Uncomment if .env file exists
+    env_file: ./.env  # Uncomment if .env file exists
     # Add external service dependencies below if required by the application
-    # depends_on:
-    #   - postgres
+    depends_on:
+      - postgres
     #   - redis
     # networks:
     #   - appnet
 
 # If your application requires a database or other external services, add them below.
 # Example for PostgreSQL:
-#  postgres:
-#    image: postgres:latest
-#    restart: unless-stopped
-#    environment:
-#      POSTGRES_USER: user
-#      POSTGRES_PASSWORD: password
-#      POSTGRES_DB: appdb
-#    volumes:
-#      - pgdata:/var/lib/postgresql/data
+  postgres:
+    image: postgres:latest
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: postgres
+    volumes:
+      - pgdata:/var/lib/postgresql
+    ports:
+      - "5432:5432"
 #    healthcheck:
 #      test: ["CMD-SHELL", "pg_isready -U user"]
 #      interval: 10s
@@ -53,5 +57,5 @@ services:
 #    driver: bridge
 
 # Uncomment and configure volumes if you add persistent services
-#volumes:
-#  pgdata:
+volumes:
+  pgdata:

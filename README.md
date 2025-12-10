@@ -19,7 +19,7 @@ This project is set up to run as a containerized Java (Spring Boot) application 
    This will build the application using the multi-stage Dockerfile and start the container exposing port 8080.
 
 2. **Access the application:**
-   - The application will be available at [http://localhost:8080](http://localhost:8080) on your host machine.
+   - The application will be available at [http://localhost:8090](http://localhost:8080) on your host machine.
 
 ### Special Configuration
 - The Dockerfile creates a non-root user (`appuser`) for running the application, improving container security.

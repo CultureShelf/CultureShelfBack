@@ -5,7 +5,7 @@ This project is set up to run as a containerized Java (Spring Boot) application 
 ### Project-Specific Docker Requirements
 - **Java Version:** Uses Eclipse Temurin 17 (JDK for build, JRE for runtime)
 - **Build Tool:** Maven Wrapper (`mvnw`) is used for building the application inside the container
-- **Ports:** The application exposes port **8080** (default Spring Boot port)
+- **Ports:** The application exposes port **8090** (default Spring Boot port)
 
 ### Environment Variables
 - No required environment variables are specified by default in the Dockerfile or compose file.
@@ -16,10 +16,10 @@ This project is set up to run as a containerized Java (Spring Boot) application 
    ```sh
    docker compose up --build
    ```
-   This will build the application using the multi-stage Dockerfile and start the container exposing port 8080.
+   This will build the application using the multi-stage Dockerfile and start the container exposing port 8090.
 
 2. **Access the application:**
-   - The application will be available at [http://localhost:8090](http://localhost:8080) on your host machine.
+   - The application will be available at [http://localhost:8090](http://localhost:8090) on your host machine.
 
 ### Special Configuration
 - The Dockerfile creates a non-root user (`appuser`) for running the application, improving container security.
@@ -27,7 +27,7 @@ This project is set up to run as a containerized Java (Spring Boot) application 
 - If you need to add external services (e.g., PostgreSQL, Redis), sample configurations are provided in the `docker-compose.yml` as comments. Uncomment and configure as needed.
 
 ### Exposed Ports
-- **java-app:** 8080 (host:container)
+- **java-app:** 8090 (host:container)
 
 ---
 

@@ -1,6 +1,7 @@
 services:
   java-app:
     environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/postgres
       SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
     build:
       context: .

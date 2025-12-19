@@ -19,8 +19,15 @@ services:
     # networks:
     #   - appnet
 
-# If your application requires a database or other external services, add them below.
-# Example for PostgreSQL:
+  frontend:
+      build:
+        context: ../MangaReversible
+      ports:
+        - "4200:4200"
+      depends_on:
+        - java-app
+      container_name: angular-frontend
+
   postgres:
     image: postgres:latest
     restart: unless-stopped

@@ -7,51 +7,36 @@ services:
     restart: unless-stopped
     init: true
     ports:
-      - "8090:8090" # Spring Boot default port exposed in Dockerfile
-    # env_file: ./.env  # Uncomment if .env file exists
-    # Add external service dependencies below if required by the application
-    # depends_on:
-    #   - postgres
-    #   - redis
-    # networks:
-    #   - appnet
+      - "8090:8090"
+    environment:
+      SPRING_PROFILES_ACTIVE: postgres
+      DB_URL: jdbc:postgresql://postgres:5432/cultureshelf
+      DB_USER: cultureshelf
+      DB_PASSWORD: cultureshelf
+      # Fronts autorises, separes par des virgules
+      CULTURESHELF_CORS_ALLOWED_ORIGINS: http://localhost:4200
+      CULTURESHELF_STORAGE_PATH: /app/data/uploads
+    volumes:
+      - uploads:/app/data/uploads
+    depends_on:
+      postgres:
+        condition: service_healthy
 
-# If your application requires a database or other external services, add them below.
-# Example for PostgreSQL:
-#  postgres:
-#    image: postgres:latest
-#    restart: unless-stopped
-#    environment:
-#      POSTGRES_USER: user
-#      POSTGRES_PASSWORD: password
-#      POSTGRES_DB: appdb
-#    volumes:
-#      - pgdata:/var/lib/postgresql/data
-#    healthcheck:
-#      test: ["CMD-SHELL", "pg_isready -U user"]
-#      interval: 10s
-#      timeout: 5s
-#      retries: 5
-#    networks:
-#      - appnet
+  postgres:
+    image: postgres:17
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: cultureshelf
+      POSTGRES_PASSWORD: cultureshelf
+      POSTGRES_DB: cultureshelf
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U cultureshelf"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
 
-# Example for Redis:
-#  redis:
-#    image: redis:latest
-#    restart: unless-stopped
-#    healthcheck:
-#      test: ["CMD", "redis-cli", "ping"]
-#      interval: 10s
-#      timeout: 5s
-#      retries: 5
-#    networks:
-#      - appnet
-
-# Uncomment and configure networks if you add external services
-#networks:
-#  appnet:
-#    driver: bridge
-
-# Uncomment and configure volumes if you add persistent services
-#volumes:
-#  pgdata:
+volumes:
+  pgdata:
+  uploads:

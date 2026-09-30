@@ -27,8 +27,8 @@ RUN addgroup --system appgroup && adduser --system --ingroup appgroup appuser
 # Copy the built jar from the build stage
 COPY --from=build /app/target/*.jar /app/app.jar
 
-# Set permissions
-RUN chown -R appuser:appgroup /app
+# Set permissions (data/uploads : visuels uploades, monte en volume)
+RUN mkdir -p /app/data/uploads && chown -R appuser:appgroup /app
 USER appuser
 
 # JVM options: container-aware memory settings
